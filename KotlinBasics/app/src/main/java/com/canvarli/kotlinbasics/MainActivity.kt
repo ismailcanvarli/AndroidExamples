@@ -202,7 +202,7 @@ class MainActivity : AppCompatActivity() {
             println(num / 5 + 3)
         }
         println("döngü bitti")
-        
+
         for (b in 0..9) {
             println(b)
         }
