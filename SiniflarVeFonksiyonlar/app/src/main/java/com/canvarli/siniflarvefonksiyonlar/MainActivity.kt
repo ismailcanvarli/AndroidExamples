@@ -27,7 +27,62 @@ class MainActivity : AppCompatActivity() {
             textView.text = "Sonuç: ${toplamaSonucu}"
         }
 */
+        sinifCalismasi()
+        nullGuvenligi()
 
+    }
+
+    fun sinifCalismasi(){
+
+        var superman = Superkahraman("Superman",50,"Gazeteci")
+        textView.text = "Yaş: ${superman.yas}"
+        superman.testFonksiyonu()
+        println(superman.sacRenginiAl())
+    }
+
+//boş (değer atamama) koruması
+    fun nullGuvenligi(){
+        //Null, Nullability, Null Safety
+
+        //Tanımlama, Definening
+        //bir değişkeni tanımlarken yada atama yaparken değişkenin türünü yanına soru işareti
+        //koyarsak bu şu anlama gelir işte bu String? string'de olabilir null da olabilir
+        var benimString : String?
+
+        //Initialization Değer atanmması
+        benimString = "Atıl"
+
+        var benimYasim : Int? = null
+        println(benimYasim)
+
+        //benimYasim = 2
+
+        //1. yöntem genelde bunu kullan.
+        if (benimYasim != null){
+            println(benimYasim * 2)
+        } else {
+            println("null geldi")
+        }
+
+        //2. yöntem: çok tavsiye edilmez
+        // !! -> null olmayacak ben garanti veriyorum demek
+        //  ? -> null olabilir garanti vermiyorum.
+        println(benimYasim?.minus(2))
+
+        //3. yöntem
+        //elvis operatörü ?: Eğer sonuç null geliyorsa default değer atama işlemini yapıyor
+        //eğer null gelmezse zaten direk değerin kendisini alıyor.
+
+        //benimYasim = 10
+        val sonuc = benimYasim?.minus(2) ?: 10
+        println(sonuc)
+
+        //4. yöntem
+        //let
+        //benimYasim = 5
+        benimYasim?.let {
+            println(it * 5)
+        }
 
     }
 
@@ -56,6 +111,8 @@ class MainActivity : AppCompatActivity() {
         val toplamaSonucu = toplama(10,50)
         textView.text = "Sonuç: ${toplamaSonucu}"
     }
+
+
 
 
 }
