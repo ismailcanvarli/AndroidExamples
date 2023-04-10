@@ -6,6 +6,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    //Değişkeni sınıfın içinde oluşturulduğu için tüm fonksiyonlar erişebiliyor
     var numara = 0
     private var isim = ""
     private var yas : Int? = null
@@ -16,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //Scope - Kapsam
         numara = 5
-
     }
 
     fun superKahramanYap(view : View){
@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         isim = isimText.text.toString()
         yas = yasText.text.toString().toIntOrNull() //İnt'e çeviremezse null olarak yazacak.
         meslek = meslekText.text.toString()
-
 
         if (yas == null) {
             sonucText.text = "Doğru Yaşı Giriniz"
@@ -40,3 +39,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
