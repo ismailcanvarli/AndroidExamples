@@ -1,4 +1,4 @@
 # AndroidExamples
-Buraya BTK akademiden aldığım eğitimde yazdığım kodları yükleyeceğim. Kotlin kullanacağım.
+BTK Akademi'deki eğitimim sırasında Kotlin kullanarak yazdığım kodu paylaşıyor olacağım.
 
-Here I will upload the codes I wrote in the training I received from the BTK academy. I will use Kotlin.
+I will be sharing the code I wrote during my training at BTK Academy using Kotlin.
