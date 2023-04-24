@@ -1,5 +1,6 @@
 package com.canvarli.farkliaktiviteler
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,6 +17,10 @@ class IkinciActivity : AppCompatActivity() {
         val alinanVeri = intent.getStringExtra("yollananVeri")
         textView2.text = alinanVeri
 
+    }
+    fun geriDon(view: View){
+        val intent = Intent(applicationContext,MainActivity::class.java)
+        startActivity(intent)
     }
 
 
