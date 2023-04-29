@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_row.view.*
 
-
+//View(görünümler) ile görsellerimizi bağlamamıza yarar.
 class RecyclerAdapter(val kahramanListesi : ArrayList<String>,
                       val kahramanGorselleri : ArrayList<Int>) :
                         RecyclerView.Adapter<RecyclerAdapter.SuperKahramanVH>() {
