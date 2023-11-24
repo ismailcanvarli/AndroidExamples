@@ -19,17 +19,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //SharedPreferences (paylaşımlı tercihler)
-        //xml dosyası oluşturuluyor ve orada saklanıyor. Ancak bu ilkel bir yöntemdir
-        //sadece anahtar kelime ve değer eşleşmesi vardır hashmap'e benziyor.
-        //Çok basit veri saklamalar için kullanılır.
-
         //oluşturulurken paket ismimiz ne ise onla oluşturulur karışıklık olmasın diye.
         //mode_private ise sadece bizim kullandığımız uygulama görsün diye yazılır.
-        sharedPreferences = this.getSharedPreferences("com.atilsamancioglu.kullaniciadisaklama",
+        sharedPreferences = this.getSharedPreferences("com.canvarli.kullaniciadisaklama",
             Context.MODE_PRIVATE)
-
         //yazdığımız anahtar veriyi vermek istiyor.
         //virgülden sonraki kısım ise öyle bir şey yoksa ne yapayım diyor. boş bıraktık biz.
         alinanKullaniciAdi = sharedPreferences.getString("kullanici","")
@@ -40,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun kaydet(view: View) {
-
         val kullaniciAdi = editText.text.toString()
         //kullanıcı hiç bir şey yazmazsa toast mesajı bastırıyoruz.
         if (kullaniciAdi == ""){
@@ -51,18 +43,16 @@ class MainActivity : AppCompatActivity() {
             //bir text view ile kaydettiğimiz kullanıcı adını yazdırıyoruz.
             textView.text = "Kaydedilen Kullanıcı Adı: ${kullaniciAdi}"
         }
-
     }
+
     //shared preferences'de kaydedilen veriyi silme işlemi yapacağız.
     fun sil(view: View){
-
         alinanKullaniciAdi = sharedPreferences.getString("kullanici","")
-
         if (alinanKullaniciAdi != null) {
             textView.text = "Kaydedilen Kullanıcı Adı: "
-            //değişiklik yapacağımız için edit dedik. sonra kaldırdık en son apply yani kaydet dedik.
+            //değişiklik yapacağımız için edit dedik.
+            // sonra kaldırdık en son apply yani kaydet dedik.
             sharedPreferences.edit().remove("kullanici").apply()
         }
-
     }
 }
