@@ -1,13 +1,12 @@
 package com.example.sqlite
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-<<<<<<< HEAD
 
         //try catch yapısı
         //Try'da denemek istediğin şeyleri yaz
@@ -15,14 +14,14 @@ class MainActivity : AppCompatActivity() {
         try {
             //yeni bir veritabanı oluşturucaz. Var ise onu açacağız.
             //veri tabanı ismi, kim tarafından kullanılacağı ve factory diye bir değer var
-            val database = this.openOrCreateDatabase("Products", MODE_PRIVATE,null)
+            val database = this.openOrCreateDatabase("Products", MODE_PRIVATE, null)
             //sorguyu çalıştır diyoruz. Eğer yoksa oluştur dedik. Tablo ismini verdik.
-            database.execSQL("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, " +
-                    "name VARCHAR, price INT)")
-        } catch (e : Exception) {
+            database.execSQL(
+                "CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, " +
+                        "name VARCHAR, price INT)"
+            )
+        } catch (e: Exception) {
             e.printStackTrace()  //bu hatanın log kaydını yazdırıyor.
         }
-=======
->>>>>>> 2dc7c200d29dca80467e93931a7d96c3729835e1
     }
 }
