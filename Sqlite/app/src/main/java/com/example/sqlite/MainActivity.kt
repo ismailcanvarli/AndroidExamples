@@ -19,11 +19,18 @@ class MainActivity : AppCompatActivity() {
             database.execSQL(
                 "CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, " + "name VARCHAR, price INT)"
             )
+            //Veri ekleme işlemi
             //database.execSQL("INSERT INTO products (name, price) VALUES ('Shoes',100)")
+            //database.execSQL("INSERT INTO products (name, price) VALUES ('Shoes',100)")
+            //database.execSQL("INSERT INTO products (name, price) VALUES ('Tshirt',50)")
+            //database.execSQL("INSERT INTO products (name, price) VALUES ('Hat',20)")
+            //database.execSQL("INSERT INTO products (name, price) VALUES ('Bot',100)")
 
             //burada bir imleç oluşturduk ve veritabanına kaydettiğimiz verileri alma işlemi yaptık.
             //imleç tek tek geziyor ve okuduğu verileri bize yazıyor.
-            val cursor = database.rawQuery("SELECT * FROM products", null)
+            val cursor = database.rawQuery(
+                "SELECT * FROM products " + "WHERE name = 'Hat'", null
+            )
 
             //burada da oluşturduğumuz kolonlar için kolon index kısmı oluşturduk.
             val idColumnIndex = cursor.getColumnIndex("id")
