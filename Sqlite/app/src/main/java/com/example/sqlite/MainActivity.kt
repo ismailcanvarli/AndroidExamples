@@ -28,8 +28,18 @@ class MainActivity : AppCompatActivity() {
 
             //burada bir imleç oluşturduk ve veritabanına kaydettiğimiz verileri alma işlemi yaptık.
             //imleç tek tek geziyor ve okuduğu verileri bize yazıyor.
-            val cursor = database.rawQuery(
+            /* val cursor = database.rawQuery(
                 "SELECT * FROM products " + "WHERE name = 'Hat'", null
+            )*/
+
+            //veri tabanında id'ye göre silme işlemi
+            database.execSQL("DELETE FROM products WHERE id = 3")
+
+            //Veri tabanında isme göre fiyat güncelleme işlemi
+            database.execSQL("UPDATE produtcs SET price = 30 WHERE name = 'Hat'")
+
+            val cursor = database.rawQuery(
+                "SELECT * FROM products", null
             )
 
             //burada da oluşturduğumuz kolonlar için kolon index kısmı oluşturduk.
