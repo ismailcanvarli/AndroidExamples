@@ -7,6 +7,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+<<<<<<< HEAD
 
         //try catch yapısı
         //Try'da denemek istediğin şeyleri yaz
@@ -21,5 +22,7 @@ class MainActivity : AppCompatActivity() {
         } catch (e : Exception) {
             e.printStackTrace()  //bu hatanın log kaydını yazdırıyor.
         }
+=======
+>>>>>>> 2dc7c200d29dca80467e93931a7d96c3729835e1
     }
 }
