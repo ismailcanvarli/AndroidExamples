@@ -2,10 +2,36 @@ package com.example.recipebooksqlite
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.navigation.Navigation
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+    }
+
+    //Burada menüyü bağlama işlemi yapacağız.
+    //bağlama işlemi için infilater kullanıcaz
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.recipe_add_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    //burada menüden item seçilirse ne yapılacak ona bakacağız.
+    //birden fazla item olabilir. Biz hangisinin seçildiğini kontrol etmeliyiz.
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        // Seçilen item yemek ekleme item'mı ona bakıyoruz.
+        if (item.itemId == R.id.recipe_add_menu_item) {
+            val action = ListFragmentDirections.actionListFragmentToRecipeFragment()
+            Navigation.findNavController(this, R.id.fragmentContainerView).navigate(action)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
