@@ -3,24 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/fragment_list">
 
     <fragment
-        android:id="@+id/listFragment"
+        android:id="@+id/fragment_list"
         android:name="com.example.recipebooksqlite.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_listFragment_to_recipeFragment"
-            app:destination="@id/recipeFragment" />
+            app:destination="@id/fragment_recipe" />
     </fragment>
     <fragment
-        android:id="@+id/recipeFragment"
+        android:id="@+id/fragment_recipe"
         android:name="com.example.recipebooksqlite.RecipeFragment"
         android:label="fragment_recipe"
         tools:layout="@layout/fragment_recipe" >
         <action
             android:id="@+id/action_recipeFragment_to_listFragment"
-            app:destination="@id/listFragment" />
+            app:destination="@id/fragment_list" />
     </fragment>
 </navigation>

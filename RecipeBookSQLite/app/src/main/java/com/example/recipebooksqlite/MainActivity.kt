@@ -1,10 +1,11 @@
 package com.example.recipebooksqlite
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,13 +26,14 @@ class MainActivity : AppCompatActivity() {
     //burada menüden item seçilirse ne yapılacak ona bakacağız.
     //birden fazla item olabilir. Biz hangisinin seçildiğini kontrol etmeliyiz.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        // Seçilen item yemek ekleme item'mı ona bakıyoruz.
         if (item.itemId == R.id.recipe_add_menu_item) {
+            // Action ID'sini belirleyin (Navigation Graph'ta oluşturduğunuz action'ın ID'si)
             val action = ListFragmentDirections.actionListFragmentToRecipeFragment()
+
+            // NavController üzerinden action'ı çağırın
             Navigation.findNavController(this, R.id.fragmentContainerView).navigate(action)
         }
-
         return super.onOptionsItemSelected(item)
     }
+
 }
