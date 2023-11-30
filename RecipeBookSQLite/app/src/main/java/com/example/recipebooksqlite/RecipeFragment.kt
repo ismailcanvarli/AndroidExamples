@@ -11,13 +11,15 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 
 
 class RecipeFragment : Fragment() {
     var chosenPicture: Uri? = null //Seçilen görselin adresini tutucaz.
-    var chosenBitmap : Bitmap? = null //görseli dönüştürmek için
+    var chosenBitmap: Bitmap? = null //görseli dönüştürmek için
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,8 @@ class RecipeFragment : Fragment() {
     //Fragmentlarda eğerki butona bir fonksiyon atıyorsak bunu setOnClick listener ile yapmalıyız
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val saveButton = view.findViewById<Button>(R.id.saveButton)
+        val imageView = view.findViewById<ImageView>(R.id.imageView)
 
         saveButton.setOnClickListener {
             savePicture(it)
@@ -90,6 +94,8 @@ class RecipeFragment : Fragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val imageView = view?.findViewById<ImageView>(R.id.imageView)
+
         //verinin boş olup olmadığına baktık. RequestCode'un 2 olup olmadığına baktık
         //Activity'nin durumunun tamam mı olduğuna baktık. Belki olumsuz olabilir.
         if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null) {
@@ -101,15 +107,17 @@ class RecipeFragment : Fragment() {
             //Bu işlemi daha önce kullandığımız bitmap factory tarzı bir yapıyla yapıcaz.
             try {
                 context?.let {
-                    if(chosenPicture != null) {
-                        if (Build.VERSION.SDK_INT >= 28){
+                    if (chosenPicture != null) {
+                        if (Build.VERSION.SDK_INT >= 28) {
                             //create soruce fonksiyonu api 28'den sonra çalışıyor.
-                            val source = ImageDecoder.createSource(it.contentResolver, chosenPicture!!)
+                            val source =
+                                ImageDecoder.createSource(it.contentResolver, chosenPicture!!)
                             chosenBitmap = ImageDecoder.decodeBitmap(source)
-                            imageView.setImageBitmap(chosenBitmap)
+                            imageView?.setImageBitmap(chosenBitmap)
                         } else {
-                            chosenBitmap = MediaStore.Images.Media.getBitmap(it.contentResolver, chosenPicture)
-                            imageView.setImageBitmap(chosenBitmap)
+                            chosenBitmap =
+                                MediaStore.Images.Media.getBitmap(it.contentResolver, chosenPicture)
+                            imageView?.setImageBitmap(chosenBitmap)
                         }
                     }
                 }
