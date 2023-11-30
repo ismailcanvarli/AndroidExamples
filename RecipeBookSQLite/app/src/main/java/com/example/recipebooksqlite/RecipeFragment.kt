@@ -39,8 +39,17 @@ class RecipeFragment : Fragment() {
         }
     }
 
+    //kaydetme işleminden önce bitmap'i küçültme işlemi yapacağız.
     fun savePicture(view: View) {
+        //sql kaydetme
+        val recipeName = R.id.recipeNameText.toString()
+        val recipeMetarial = R.id.recipeMaterialText.toString()
 
+        if(chosenBitmap != null) {
+            //küçültülen bitmap
+            val reducedBitmap = createSmallBitmap(chosenBitmap!!,300)
+
+        }
     }
 
     //normalde bu kısmı main activity'de yazmamız gerekiyor.
@@ -71,7 +80,6 @@ class RecipeFragment : Fragment() {
                 startActivityForResult(galleryIntent, 2)
             }
         }
-
     }
 
     //istenilen izinlerin sonuçlarını değerlendirdiğimiz fonksiyon
@@ -126,6 +134,31 @@ class RecipeFragment : Fragment() {
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    //Bunu tüm bitmap küçültme işlemlerinde kullanabiliriz.
+    //bitmap'in boyutunu küçültmek için yazacağız bu fonksiyonu
+    fun createSmallBitmap(chosenBitmap: Bitmap, maximumSize: Int) : Bitmap {
+        //bu uzunluk ve genişlik değerlerininin oranını koruyarak işlem yapacağız
+        var width = chosenBitmap.width
+        var height = chosenBitmap.height
+        //bitmap'in oranını aldık.
+        val bitmapRate : Double = width.toDouble() / height.toDouble()
+
+        //görüntünün yatay mı dikey mi olduğunu tespit edeceğiz.
+        if(bitmapRate > 1) {
+            //Görselimiz yatayken
+            width = maximumSize
+            val shortenedHeight = width / bitmapRate //kısaltılmış yüksekliği bulucaz
+            height = shortenedHeight.toInt()
+
+        } else if(bitmapRate < 1) {
+            //görselimiz dikeyken.
+            height = maximumSize
+            val shortenedWidth = height * bitmapRate
+            width = shortenedWidth.toInt()
+        }
+    return Bitmap.createScaledBitmap(chosenBitmap, width, height,true)
     }
 
 }

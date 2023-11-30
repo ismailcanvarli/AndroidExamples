@@ -15,16 +15,16 @@
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipeNameText"
-        app:layout_constraintVertical_bias="0.641" />
+        app:layout_constraintVertical_bias="0.709" />
 
     <EditText
         android:id="@+id/recipeNameText"
-        android:layout_width="332dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="307dp"
+        android:layout_width="323dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="257dp"
         android:ems="10"
         android:hint="Yemek ismi giriniz:"
         android:inputType="text"
@@ -37,23 +37,25 @@
         android:id="@+id/saveButton"
         android:layout_width="116dp"
         android:layout_height="85dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="40dp"
         android:onClick="savePicture"
         android:text="Kaydet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="19dp"
         android:layout_marginBottom="34dp"
         android:src="@drawable/gorselsecimi"
         app:layout_constraintBottom_toTopOf="@+id/recipeNameText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
