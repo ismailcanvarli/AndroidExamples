@@ -2,6 +2,7 @@ package com.example.recipebooksqlite
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -15,6 +16,8 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import java.io.ByteArrayOutputStream
 
 
 class RecipeFragment : Fragment() {
@@ -49,6 +52,39 @@ class RecipeFragment : Fragment() {
             //küçültülen bitmap
             val reducedBitmap = createSmallBitmap(chosenBitmap!!,300)
 
+            //Veri dizisini array'e dönüştürürken bize yardımcı olan bir sınıf
+            val outputStream = ByteArrayOutputStream()
+            //bitmap'i küçültüyoruz. Png formatında saklıyoruz.
+            reducedBitmap.compress(Bitmap.CompressFormat.PNG, 50, outputStream)
+            val byteArray = outputStream.toByteArray()
+
+            try {
+                context?.let {
+                    val database = it.openOrCreateDatabase("Recipes",Context.MODE_PRIVATE,null)
+                    database.execSQL("CREATE TABLE IF NOT EXISTS recipes " +
+                            "(id INTEGER PRIMARY KEY, recipeName VARCHAR, recipeMaterials VARCHAR, picture BLOB)")
+
+                    //Veri tabanına ekleme işlemlerini normalde bu şekilde yapıyorduk.
+                    //Bu şekilde yapmayacağız daha farklı daha basit bir şekilde yapacağız.
+                    //database.execSQL("INSERT INTO recipes(recipeName, recipeMaterials, pciture) VALUES() ")
+
+                    //soru işaretlerini verileri sonradan koyacağımız ve değiştirebileceğimiz için koyduk
+                    val sqlString = "INSERT INTO recipes (recipeName, recipeMaterials, picture) VALUES (?,?,?)"
+                    val statement = database.compileStatement(sqlString)
+                    //şimdi ise soru işaretlerini bağlama işlemi yapacağız.
+                    //en sonda statement'ı execute ettik.
+                    statement.bindString(1,recipeName)
+                    statement.bindString(2,recipeMetarial)
+                    statement.bindBlob(3,byteArray)
+                    statement.execute()
+                }
+
+            } catch (e:Exception) {
+                e.printStackTrace()
+            }
+            //En son kaydetme işlemi bittikten sonra listeye geri dönüyoruz.
+            val action = RecipeFragmentDirections.actionRecipeFragmentToListFragment()
+            Navigation.findNavController(view).navigate(action)
         }
     }
 
