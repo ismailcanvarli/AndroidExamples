@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             val action = ListFragmentDirections.actionListFragmentToRecipeFragment()
 
             // NavController üzerinden action'ı çağırın
-            Navigation.findNavController(this, R.id.fragmentContainerView).navigate(action)
+            Navigation.findNavController(this, R.id.fragment_container_view).navigate(action)
         }
         return super.onOptionsItemSelected(item)
     }

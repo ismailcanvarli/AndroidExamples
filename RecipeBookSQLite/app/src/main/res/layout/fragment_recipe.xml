@@ -7,21 +7,21 @@
     tools:context=".RecipeFragment">
 
     <EditText
-        android:id="@+id/recipeMaterialText"
+        android:id="@+id/recipe_material_text"
         android:layout_width="333dp"
         android:layout_height="63dp"
         android:ems="10"
         android:hint="Yemek malzemelerini giriniz:  "
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipeNameText"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_name_text"
         app:layout_constraintVertical_bias="0.709" />
 
     <EditText
-        android:id="@+id/recipeNameText"
+        android:id="@+id/recipe_name_text"
         android:layout_width="323dp"
         android:layout_height="67dp"
         android:layout_marginBottom="257dp"
@@ -31,10 +31,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
     <Button
-        android:id="@+id/saveButton"
+        android:id="@+id/save_button"
         android:layout_width="116dp"
         android:layout_height="85dp"
         android:layout_marginBottom="40dp"
@@ -46,13 +46,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:layout_marginBottom="34dp"
         android:src="@drawable/gorselsecimi"
-        app:layout_constraintBottom_toTopOf="@+id/recipeNameText"
+        app:layout_constraintBottom_toTopOf="@+id/recipe_name_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"

@@ -31,8 +31,8 @@ class RecipeFragment : Fragment() {
     //Fragmentlarda eğerki butona bir fonksiyon atıyorsak bunu setOnClick listener ile yapmalıyız
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val saveButton = view.findViewById<Button>(R.id.saveButton)
-        val imageView = view.findViewById<ImageView>(R.id.imageView)
+        val saveButton = view.findViewById<Button>(R.id.save_button)
+        val imageView = view.findViewById<ImageView>(R.id.image_view)
 
         saveButton.setOnClickListener {
             savePicture(it)
@@ -45,8 +45,8 @@ class RecipeFragment : Fragment() {
     //kaydetme işleminden önce bitmap'i küçültme işlemi yapacağız.
     fun savePicture(view: View) {
         //sql kaydetme
-        val recipeName = R.id.recipeNameText.toString()
-        val recipeMetarial = R.id.recipeMaterialText.toString()
+        val recipeName = R.id.recipe_name_text.toString()
+        val recipeMetarial = R.id.recipe_material_text.toString()
 
         if(chosenBitmap != null) {
             //küçültülen bitmap
@@ -138,7 +138,7 @@ class RecipeFragment : Fragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val imageView = view?.findViewById<ImageView>(R.id.imageView)
+        val imageView = view?.findViewById<ImageView>(R.id.image_view)
 
         //verinin boş olup olmadığına baktık. RequestCode'un 2 olup olmadığına baktık
         //Activity'nin durumunun tamam mı olduğuna baktık. Belki olumsuz olabilir.
@@ -196,7 +196,6 @@ class RecipeFragment : Fragment() {
         }
     return Bitmap.createScaledBitmap(chosenBitmap, width, height,true)
     }
-
 }
 
 
