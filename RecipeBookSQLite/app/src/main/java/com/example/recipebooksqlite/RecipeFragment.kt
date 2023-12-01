@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -13,6 +14,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -33,12 +35,61 @@ class RecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val saveButton = view.findViewById<Button>(R.id.save_button)
         val imageView = view.findViewById<ImageView>(R.id.image_view)
+        val recipeNameText = view.findViewById<EditText>(R.id.recipe_name_text)
+        val recipeMaterialText = view.findViewById<EditText>(R.id.recipe_material_text)
 
         saveButton.setOnClickListener {
             savePicture(it)
         }
         imageView.setOnClickListener {
             choosePicture(it)
+        }
+        //gelen bilginin nereden geldiğini anlamaya çalışıyoruz.
+        arguments?.let {
+            var incomingInformation = RecipeFragmentArgs.fromBundle(it).information
+
+            //yeni bir yemek eklemeye geldi. Boş sayfa açılması gerekiyor.
+            if (incomingInformation.equals("menudengeldim")) {
+                recipeNameText.setText("")
+                recipeMaterialText.setText("")
+                saveButton.visibility = View.VISIBLE
+                //yeni kaydetme işlemi olduğu için arka planı resim seçiniz olarak ayarlıyoruz.
+                val choosingPictureBackground =
+                    BitmapFactory.decodeResource(context?.resources, R.drawable.gorselsecimi)
+                imageView.setImageBitmap(choosingPictureBackground)
+
+            } else if (incomingInformation.equals("recyclerdangeldim")) {
+                //daha önce oluşturduğu yemeği görmeye geldi
+                saveButton.visibility = View.INVISIBLE
+
+                val choosenId = RecipeFragmentArgs.fromBundle(it).id
+                context?.let {
+                    try {
+                        val database =
+                            it.openOrCreateDatabase("Recipes", Context.MODE_PRIVATE, null)
+                        val cursor = database.rawQuery(
+                            "SELECT * FROM recipes WHERE id = ?",
+                            arrayOf(choosenId.toString())
+                        )
+
+                        val recipeNameIndex = cursor.getColumnIndex("recipeName")
+                        val recipeMaterialIndex = cursor.getColumnIndex("recipeMaterial")
+                        val recipePicture = cursor.getColumnIndex("picture")
+
+                        while (cursor.moveToNext()) {
+                            recipeNameText.setText(cursor.getString(recipeNameIndex))
+                            recipeMaterialText.setText(cursor.getString(recipeMaterialIndex))
+
+                            val byteArray = cursor.getBlob(recipePicture)
+                            val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+                            imageView.setImageBitmap(bitmap)
+                        }
+                        cursor.close()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
         }
     }
 
@@ -48,9 +99,9 @@ class RecipeFragment : Fragment() {
         val recipeName = R.id.recipe_name_text.toString()
         val recipeMetarial = R.id.recipe_material_text.toString()
 
-        if(chosenBitmap != null) {
+        if (chosenBitmap != null) {
             //küçültülen bitmap
-            val reducedBitmap = createSmallBitmap(chosenBitmap!!,300)
+            val reducedBitmap = createSmallBitmap(chosenBitmap!!, 300)
 
             //Veri dizisini array'e dönüştürürken bize yardımcı olan bir sınıf
             val outputStream = ByteArrayOutputStream()
@@ -60,26 +111,28 @@ class RecipeFragment : Fragment() {
 
             try {
                 context?.let {
-                    val database = it.openOrCreateDatabase("Recipes",Context.MODE_PRIVATE,null)
-                    database.execSQL("CREATE TABLE IF NOT EXISTS recipes " +
-                            "(id INTEGER PRIMARY KEY, recipeName VARCHAR, recipeMaterials VARCHAR, picture BLOB)")
+                    val database = it.openOrCreateDatabase("Recipes", Context.MODE_PRIVATE, null)
+                    database.execSQL(
+                        "CREATE TABLE IF NOT EXISTS recipes " + "(id INTEGER PRIMARY KEY, recipeName VARCHAR, recipeMaterial VARCHAR, picture BLOB)"
+                    )
 
                     //Veri tabanına ekleme işlemlerini normalde bu şekilde yapıyorduk.
                     //Bu şekilde yapmayacağız daha farklı daha basit bir şekilde yapacağız.
-                    //database.execSQL("INSERT INTO recipes(recipeName, recipeMaterials, pciture) VALUES() ")
+                    //database.execSQL("INSERT INTO recipes(recipeName, recipeMaterial, pciture) VALUES() ")
 
                     //soru işaretlerini verileri sonradan koyacağımız ve değiştirebileceğimiz için koyduk
-                    val sqlString = "INSERT INTO recipes (recipeName, recipeMaterials, picture) VALUES (?,?,?)"
+                    val sqlString =
+                        "INSERT INTO recipes (recipeName, recipeMaterial, picture) VALUES (?,?,?)"
                     val statement = database.compileStatement(sqlString)
                     //şimdi ise soru işaretlerini bağlama işlemi yapacağız.
                     //en sonda statement'ı execute ettik.
-                    statement.bindString(1,recipeName)
-                    statement.bindString(2,recipeMetarial)
-                    statement.bindBlob(3,byteArray)
+                    statement.bindString(1, recipeName)
+                    statement.bindString(2, recipeMetarial)
+                    statement.bindBlob(3, byteArray)
                     statement.execute()
                 }
 
-            } catch (e:Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
             //En son kaydetme işlemi bittikten sonra listeye geri dönüyoruz.
@@ -174,27 +227,27 @@ class RecipeFragment : Fragment() {
 
     //Bunu tüm bitmap küçültme işlemlerinde kullanabiliriz.
     //bitmap'in boyutunu küçültmek için yazacağız bu fonksiyonu
-    fun createSmallBitmap(chosenBitmap: Bitmap, maximumSize: Int) : Bitmap {
+    fun createSmallBitmap(chosenBitmap: Bitmap, maximumSize: Int): Bitmap {
         //bu uzunluk ve genişlik değerlerininin oranını koruyarak işlem yapacağız
         var width = chosenBitmap.width
         var height = chosenBitmap.height
         //bitmap'in oranını aldık.
-        val bitmapRate : Double = width.toDouble() / height.toDouble()
+        val bitmapRate: Double = width.toDouble() / height.toDouble()
 
         //görüntünün yatay mı dikey mi olduğunu tespit edeceğiz.
-        if(bitmapRate > 1) {
+        if (bitmapRate > 1) {
             //Görselimiz yatayken
             width = maximumSize
             val shortenedHeight = width / bitmapRate //kısaltılmış yüksekliği bulucaz
             height = shortenedHeight.toInt()
 
-        } else if(bitmapRate < 1) {
+        } else if (bitmapRate < 1) {
             //görselimiz dikeyken.
             height = maximumSize
             val shortenedWidth = height * bitmapRate
             width = shortenedWidth.toInt()
         }
-    return Bitmap.createScaledBitmap(chosenBitmap, width, height,true)
+        return Bitmap.createScaledBitmap(chosenBitmap, width, height, true)
     }
 }
 

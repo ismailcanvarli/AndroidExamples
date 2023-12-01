@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.ListFragment
 import androidx.navigation.Navigation
 
 class MainActivity : AppCompatActivity() {
@@ -25,8 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.recipe_add_menu_item) {
             // Action ID'sini belirleyin (Navigation Graph'ta oluşturduğunuz action'ın ID'si)
-            val action = ListFragmentDirections.actionListFragmentToRecipeFragment()
-
+            val action = ListFragmentDirections.actionListFragmentToRecipeFragment("menudengeldim",0)
             // NavController üzerinden action'ı çağırın
             Navigation.findNavController(this, R.id.fragment_container_view).navigate(action)
         }
