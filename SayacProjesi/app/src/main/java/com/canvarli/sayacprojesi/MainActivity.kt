@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
             override fun onFinish() {
                 textView.text = "Kalan: 0"
             }
-
             //her bir tik attığında ne yapılsın diyor. p0 kalan milisaniyedir.
             override fun onTick(p0: Long) {
                 textView.text = "Kalan: ${p0 / 1000}"

@@ -1,0 +1,28 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id action_firstFragment_to_secondFragment
+id action_secondFragment_to_firstFragment2
+id button1
+id button2
+id firstFragment
+id fragmentContainerView
+id navigation_graph
+id secondFragment
+id textview1
+id textview2
+layout activity_main
+layout fragment_first
+layout fragment_second
+mipmap ic_launcher
+mipmap ic_launcher_round
+navigation navigation_graph
+string app_name
+string hello_blank_fragment
+style Base.Theme.NavigationKotlin
+style Theme.NavigationKotlin
+xml backup_rules
+xml data_extraction_rules

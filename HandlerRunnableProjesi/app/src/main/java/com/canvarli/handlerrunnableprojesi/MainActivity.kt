@@ -19,10 +19,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     //başlata butonuna basıldığında 0'dan başlayarak artarak gidecek.
-
     fun baslat(view: View){
         numara = 0
-
         //abstract class
         runnable = object : Runnable{
             //bu fonksiyon oluşturmak zorundayız.
@@ -37,7 +35,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun durdur(view: View){
-
         handler.removeCallbacks(runnable) //runnable'ı kaldır dedik yani durdurduk.
         numara = 0
         textView.text = "Sayaç: 0"
