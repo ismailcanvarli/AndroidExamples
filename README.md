@@ -1,4 +1,4 @@
 # AndroidExamples
-BTK Akademi'deki eğitimim sırasında Kotlin kullanarak yazdığım kodu paylaşıyor olacağım.
+Bu repo'da, BTK Akademisi'nde aldığım 'Android XML' kursunda öğrendiklerime ilişkin olarak geliştirdiğim uygulamalar bulunmaktadır.
 
-I will be sharing the code I wrote during my training at BTK Academy using Kotlin.
+In this repository, there are applications I've built related to what I've learned in the 'Android XML' course at BTK Academy.
